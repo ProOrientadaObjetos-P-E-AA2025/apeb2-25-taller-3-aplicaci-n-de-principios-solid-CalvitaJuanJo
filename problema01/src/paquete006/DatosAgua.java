@@ -1,17 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package paquete006;
 
-/**
- *
- * @author reroes
- */
 public class DatosAgua {
-    /*
     
-    */
+    
     public static double[][] datosComerciales(){
         double[][] informacion = {
             {2.20, 100.2, 0.2},

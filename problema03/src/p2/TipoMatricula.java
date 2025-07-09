@@ -1,51 +1,44 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package p2;
 
-import p1.MatriculaCampamento;
-import p1.MatriculaColegio;
+import p1.Matricula;
+import java.util.ArrayList;
 
-/**
- *
- * @author reroes
- */
 public class TipoMatricula {
     private double promedioMatriculas;
-    private MatriculaCampamento campamento;
-    private MatriculaColegio colegio;
-    // private MatriculaEscuela escuela;
-    // private MatriculaJardin jardin;
-    // private MatriculaMaternal maternal;
-    // private MatriculaMaternal maternal2;
-    
-    public void establecerMatriculaCampamento(MatriculaCampamento c){
-        campamento = c;
+    private ArrayList<Matricula> listaMatriculas;
+
+    public TipoMatricula() {
+        listaMatriculas = new ArrayList<>();
     }
-    
-    public void establecerMatriculaColegio(MatriculaColegio c){
-        colegio = c;
+
+    public void agregarMatricula(Matricula m) {
+        m.establecerTarifa(); 
+        listaMatriculas.add(m);
     }
-    
-    public MatriculaCampamento obtenerMatriculaCampamento(){
-        return campamento;
+
+    public ArrayList<Matricula> obtenerMatriculas() {
+        return listaMatriculas;
     }
-    
-    public MatriculaColegio obtenerMatriculaColegio(){
-        return colegio;
+
+    public void establecerPromedioTarifas() {
+        double suma = 0;
+        for (Matricula m : listaMatriculas) {
+            suma += m.obtenerTarifa();
+        }
+        promedioMatriculas = listaMatriculas.isEmpty() ? 0 : suma / listaMatriculas.size();
     }
-    
-    public void establecerPromedioTarifas(){
-        promedioMatriculas = (obtenerMatriculaCampamento().obtenerTarifa() + 
-                obtenerMatriculaColegio().obtenerTarifa())/2;
-        
-    }
-    
-    public double obtenerPromedioTarifas(){
+
+    public double obtenerPromedioTarifas() {
         return promedioMatriculas;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        String reporte = "Tarifas de matriculas:\n";
+        for (Matricula m : listaMatriculas) {
+            reporte += String.format("Tarifa: %.2f\n", m.obtenerTarifa());
+        }
+        reporte += String.format("Promedio de tarifas: %.2f\n", obtenerPromedioTarifas());
+        return reporte;
+    }
 }

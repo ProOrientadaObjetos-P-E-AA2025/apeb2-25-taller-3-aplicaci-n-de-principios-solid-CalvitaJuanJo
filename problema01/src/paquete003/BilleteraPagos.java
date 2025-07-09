@@ -1,38 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package paquete003;
 
+import java.util.ArrayList;
 import paquete001.Persona;
-import paquete004.PagoAguaPotable;
-import paquete004.PagoLuzElectrica;
-import paquete004.PagoPredial;
-import paquete004.PagoTelefonoConvencional;
+import paquete004.Pago;
 
-/**
- *
- * @author reroes
- */
 public class BilleteraPagos {
-    public Persona persona;
-    public double gastoPagos;
-    public String mes;
-    public PagoAguaPotable aguaCasa;
-    public PagoAguaPotable aguaComercio;
-    public PagoLuzElectrica luzCasa;
-    public PagoLuzElectrica luzComercio;
-    public PagoPredial casa1;
-    public PagoPredial casa2;
-    public PagoTelefonoConvencional telefonoCasa;
-    public PagoTelefonoConvencional telefonoFinca;
-    
-    public String toString(){
-        /*
-            Se debe presentar el reporte que incluya
-            información correspondiente oportuna
-        */
-        return "Presentar Reporte";
+
+    private Persona persona;
+    private String mes;
+    private ArrayList<Pago> listaPagos;
+
+    public BilleteraPagos(Persona persona, String mes) {
+        this.persona = persona;
+        this.mes = mes;
+        this.listaPagos = new ArrayList<>();
     }
-    
+
+    public void agregarPago(Pago pago) {
+        listaPagos.add(pago);
+    }
+
+    public double calcularTotalPagos() {
+        double total = 0;
+        for (Pago p : listaPagos) {
+            total += p.getValorPagado();
+        }
+        return total;
+    }
+
+    public String generarReporte() {
+        String reporte = "";
+        reporte = "Reporte de pagos para: " + persona.getNombre() + "\n";
+        reporte += "Mes: " + mes + "\n";
+        reporte += "-----------------------------\n";
+
+        for (Pago p : listaPagos) {
+            reporte += p.toString() + "\n";
+        }
+
+        reporte += "-----------------------------\n";
+        reporte += "Total pagado: $" + String.format("%.2f", calcularTotalPagos()) + "\n";
+
+        return reporte;
+    }
 }
